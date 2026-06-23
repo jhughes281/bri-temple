@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benefactor Redemption Inner-Prize (B-R-I)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#20201c; --navy-deep:#121210; --navy-soft:#234d2f;
+    --maroon:#2f8f43; --maroon-deep:#1f6332; --maroon-soft:#46a857;
+    --green:#2f8f43; --green-deep:#1f6332; --green-soft:#46a857;
+    --gold:#c6a24a; --gold-soft:#e6cd8a; --gold-deep:#9c7d2e;
+    --blue:#2f8f43; --light:#f7f1e6; --light-2:#ece1cd; --cream-2:#ece1cd; --ink:#20201c; --muted:#6b6258;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Source Sans 3',sans-serif;color:var(--ink);background:#fff;line-height:1.7}
+  h1,h2,h3,.serif{font-family:'Playfair Display',serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:14px 30px;border-radius:6px;font-weight:600;letter-spacing:.02em;
+       font-size:15px;transition:.25s;cursor:pointer;border:2px solid transparent}
+  .btn-gold{background:var(--gold);color:var(--navy-deep)}
+  .btn-gold:hover{background:var(--gold-soft)}
+  .btn-ghost{border-color:rgba(255,255,255,.6);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .btn-navy{background:var(--maroon);color:#fff}
+  .btn-navy:hover{background:var(--maroon-soft)}
+  .eyebrow{color:var(--gold-deep);letter-spacing:.22em;text-transform:uppercase;font-size:13px;font-weight:700}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(23,16,15,.97);backdrop-filter:blur(6px);
+         border-bottom:1px solid rgba(198,162,74,.4)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{display:flex;align-items:center;gap:12px;color:#fff}
+  .brand .logo-img{width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid rgba(201,162,74,.5)}
+  .brand b{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;letter-spacing:.01em}
+  .navlinks{display:flex;gap:28px;align-items:center}
+  .navlinks a{color:#ece0d1;font-size:15px;letter-spacing:.02em}
+  .navlinks a:hover{color:var(--gold-soft)}
+  .menu-btn{display:none;background:none;border:0;color:var(--gold-soft);font-size:28px;cursor:pointer}
+
+  .hero{position:relative;background:linear-gradient(150deg,var(--navy-soft),var(--navy) 55%,var(--navy-deep));
+        color:#fff;padding:96px 0 110px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .hero h1{font-size:clamp(36px,5.2vw,58px);font-weight:700;line-height:1.08}
+  .hero .sub{font-size:clamp(17px,2.2vw,20px);color:#ecdfce;margin:22px 0 0;max-width:560px}
+  .hero .cta{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}
+  .verse{margin-top:28px;font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-soft);font-size:18px}
+  .hero-img img{width:100%;max-width:430px;display:block;margin:0 auto;filter:drop-shadow(0 22px 44px rgba(0,0,0,.45))}
+
+  section{padding:88px 0}
+  .section-head{text-align:center;max-width:740px;margin:0 auto 54px}
+  .section-head h2{font-size:clamp(30px,4.5vw,46px);font-weight:700;margin:10px 0 14px;color:var(--navy)}
+  .section-head p{color:var(--muted);font-size:18px}
+
+  .about{background:var(--light)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+  .about h3{font-size:30px;color:var(--navy);margin-bottom:14px}
+  .about p{font-size:17px;margin-bottom:16px;color:var(--ink)}
+  .about-img img{width:100%;border-radius:16px;box-shadow:0 18px 44px rgba(45,20,20,.18)}
+
+  .grants{background:#fff}
+  .focus{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 44px}
+  .fund-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--light-2);
+             box-shadow:0 14px 34px rgba(45,20,20,.1);display:flex;flex-direction:column}
+  .fund-card .fc-top{background:var(--maroon);padding:13px 20px;text-align:center}
+  .fund-card .fc-tag{color:var(--gold-soft);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .fund-card .fc-body{padding:28px 26px;display:flex;flex-direction:column;flex:1}
+  .fund-card .fc-body h3{color:var(--maroon);font-size:22px;margin-bottom:10px;line-height:1.2}
+  .fund-card .fc-body p{color:var(--muted);font-size:15px;flex:1}
+  .fund-card .fc-amt{align-self:flex-start;margin-top:20px;background:var(--cream-2);color:var(--maroon-deep);
+                     font-weight:700;font-size:14px;padding:7px 18px;border-radius:30px}
+  .elig{background:var(--light);border-radius:16px;padding:40px;border-left:5px solid var(--gold)}
+  .elig h3{color:var(--navy);font-size:26px;margin-bottom:16px}
+  .elig ul{list-style:none;display:grid;gap:12px}
+  .elig li{padding-left:30px;position:relative;color:var(--ink);font-size:16px}
+  .elig li:before{content:"\2713";position:absolute;left:0;color:var(--gold-deep);font-weight:700}
+
+  .vision{background:linear-gradient(150deg,var(--maroon),var(--maroon-deep));color:#fff;text-align:center}
+  .vision h2{font-size:clamp(30px,4.5vw,46px);font-weight:700;margin-bottom:16px}
+  .vision p{max-width:680px;margin:0 auto;font-size:19px;color:#f1e3d2}
+
+  .contact{background:var(--light)}
+  .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+  .ci{background:#fff;border-radius:14px;padding:30px 20px;border:1px solid var(--light-2)}
+  .ci .ic{font-size:26px;color:var(--gold-deep)}
+  .ci h3{color:var(--navy);font-size:19px;margin:8px 0 6px}
+  .ci p{color:var(--muted);font-size:15px;line-height:1.5}
+  .ci a{color:var(--blue);font-weight:600}
+  .hours{max-width:520px;margin:34px auto 0;background:#fff;border-radius:14px;padding:26px 32px;border:1px solid var(--light-2)}
+  .hours h3{color:var(--navy);text-align:center;font-size:22px;margin-bottom:14px}
+  .hours .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--light-2);font-size:15px}
+  .hours .row:last-child{border-bottom:0}
+  .hours .row span:last-child{color:var(--muted)}
+
+  footer{background:var(--navy-deep);color:rgba(238,228,210,.72);text-align:center;padding:48px 24px}
+  footer img{width:66px;height:66px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(201,162,74,.4)}
+  footer .fname{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-soft)}
+  footer small{display:block;font-size:13px;opacity:.7;margin-top:12px}
+
+  @media(max-width:880px){
+    .navlinks{display:none} .menu-btn{display:block}
+    .hero-grid,.about-grid,.focus,.contact-grid{grid-template-columns:1fr}
+    .hero-grid{text-align:center} .hero .sub{margin:22px auto 0} .hero .cta{justify-content:center}
+    .hero-img{order:-1} .hero-img img{max-width:300px}
+    .contact-grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="#top"><img class="logo-img" src="assets/logo.png" alt="B-R-I logo"><b>Benefactor Redemption Inner-Prize</b></a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#grants">Grants</a>
+      <a href="#vision">Vision</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="btn btn-gold" style="padding:10px 22px">Donate</a>
+    </div>
+    <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('.navlinks').style.display='flex'">&#9776;</button>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow" style="color:var(--gold-soft)">Benefactor Redemption Inner-Prize</p>
+      <h1>Building Inner-Prize Wealth, One Legacy at a Time</h1>
+      <p class="sub">A faith-centered organization committed to breaking cycles of financial hardship across generations &mdash; through resources, education, and support for individuals, families, and communities.</p>
+      <div class="cta">
+        <a href="#grants" class="btn btn-gold">Explore Our Grants</a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
+      <p class="verse">&ldquo;In Him we have obtained an inheritance.&rdquo; &mdash; Ephesians 1:11</p>
+    </div>
+    <div class="hero-img"><img src="assets/hero-graphic.png" alt="Benefactor Redemption Inner-Prize"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow">About us</p>
+      <h3>A mission rooted in faith and freedom</h3>
+      <p>Benefactor Redemption Inner-Prize is dedicated to helping individuals and families break financial cycles and build generational stability through strategic resources, education, and support.</p>
+      <p>We believe lasting change begins with dignity, equity, and practical solutions &mdash; meeting people where they are and walking with them toward opportunity. Our purpose is to advance justice, promote individual freedoms, and empower communities through humanitarian work that delivers measurable, sustainable impact.</p>
+    </div>
+    <div class="about-img"><img src="assets/couple.jpg" alt="Benefactor Redemption Inner-Prize"></div>
+  </div>
+</section>
+
+<section class="grants" id="grants">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Grants for humanitarians</p>
+      <h2>Funding meaningful, lasting impact</h2>
+      <p>We support humanitarian projects that advance equity, dignity, and practical solutions for the communities they serve.</p>
+    </div>
+    <div class="focus">
+      <div class="fund-card">
+        <div class="fc-top"><span class="fc-tag">What we fund</span></div>
+        <div class="fc-body">
+          <h3>Community-driven emergency relief</h3>
+          <p>Food, water, and shelter for communities facing crisis &mdash; led by the people closest to the need.</p>
+          <span class="fc-amt">Funding &middot; $Varies</span>
+        </div>
+      </div>
+      <div class="fund-card">
+        <div class="fc-top"><span class="fc-tag">What we fund</span></div>
+        <div class="fc-body">
+          <h3>Health &amp; medical outreach</h3>
+          <p>Programs expanding access to care and wellbeing for underserved populations.</p>
+          <span class="fc-amt">Funding &middot; $Varies</span>
+        </div>
+      </div>
+      <div class="fund-card">
+        <div class="fc-top"><span class="fc-tag">What we fund</span></div>
+        <div class="fc-body">
+          <h3>Small-scale infrastructure</h3>
+          <p>Sanitation and infrastructure projects backed by clear, sustainable maintenance plans.</p>
+          <span class="fc-amt">Funding &middot; $Varies</span>
+        </div>
+      </div>
+    </div>
+    <div class="elig">
+      <h3>Grant eligibility</h3>
+      <ul>
+        <li>Organizations or individuals with a clear track record or demonstrated community support</li>
+        <li>Projects with defined beneficiaries, measurable outcomes, and a feasible budget</li>
+        <li>Preference for proposals led by or in partnership with people from the affected community</li>
+      </ul>
+      <a href="#contact" class="btn btn-navy" style="margin-top:24px">Submit a Proposal</a>
+    </div>
+  </div>
+</section>
+
+<section class="vision" id="vision">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--gold-soft)">Our vision</p>
+    <h2>Financial freedom for every family</h2>
+    <p>A future where financial freedom, justice, and opportunity are accessible to every family &mdash; breaking generational cycles and building enduring legacies.</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Get in touch</p>
+      <h2>Connect with B-R-I</h2>
+      <p>Reach out with questions, proposals, or to learn how to get involved.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="ci"><div class="ic">&#9742;</div><h3>Phone</h3><p><a href="tel:18889088809">1-888-908-8809</a></p></div>
+      <div class="ci"><div class="ic">&#128438;</div><h3>Fax</h3><p>1-267-491-8809</p></div>
+      <div class="ci"><div class="ic">&#9993;</div><h3>Email</h3><p><a href="mailto:benefactor98@b-r-i-temple.org">benefactor98@b-r-i-temple.org</a></p></div>
+      <div class="ci"><div class="ic">&#9962;</div><h3>Mail</h3><p>P.O. Box 1271<br>TX 77489-1271</p></div>
+    </div>
+    <div class="hours">
+      <h3>Office hours</h3>
+      <div class="row"><span>Monday &ndash; Friday</span><span>11:00 AM &ndash; 6:30 PM</span></div>
+      <div class="row"><span>Saturday</span><span>11:00 AM &ndash; 5:00 PM</span></div>
+      <div class="row"><span>Sunday</span><span>12:30 PM &ndash; 4:00 PM</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="assets/logo.png" alt="B-R-I logo">
+  <div class="fname">Benefactor Redemption Inner-Prize</div>
+  <p>Building Inner-Prize Wealth, One Legacy at a Time</p>
+  <small>&copy; 2026 Benefactor Redemption Inner-Prize (B-R-I). All rights reserved.</small>
+</footer>
+
+</body>
+</html>
